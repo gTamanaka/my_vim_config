@@ -2,7 +2,7 @@ set number
 set hidden
 set mouse=a
 set nocompatible
-
+set noshowmode
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -45,8 +45,13 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'sheerun/vim-polyglot'
 
 
+Plug 'luochen1990/rainbow'
 
+Plug 'itchyny/lightline.vim'
+Plug 'preservim/nerdcommenter'
+Plug 'dense-analysis/ale'
+Plug 'mg979/vim-visual-multi'
 call plug#end()
 
 colorscheme dracula
-
+let g:rainbow_active = 1
