@@ -3,6 +3,13 @@ set hidden
 set mouse=a
 set nocompatible
 set noshowmode
+set splitbelow
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -17,8 +24,8 @@ Plug 'junegunn/vim-easy-align'
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
-" Multiple Plug commands can be written in a single line using | separators
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -53,5 +60,13 @@ Plug 'dense-analysis/ale'
 Plug 'mg979/vim-visual-multi'
 call plug#end()
 
-colorscheme dracula
-let g:rainbow_active = 1
+ colorscheme dracula
+ let g:rainbow_active = 1
+" Open a NERDTree automatically when vim starts up
+autocmd vimenter * NERDTree
+" When open change the focus to the file (and not the NERDTree)
+autocmd! VimEnter * NERDTree | wincmd w
+" close vim if the only window left open is a NERDTree
+"
+autocmd VimEnter * term ++rows=10
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
